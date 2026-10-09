@@ -321,6 +321,84 @@ Run lint and build. Summarize changes and provide concise manual testing steps. 
 **Full Prompt:**\
 Manual testing passed. However, I would like the predefined MORTICIA_WARNINGS to be a little spooker, especially since Halloween is right around the corner.
 
+**### Prompt 16 — Redesign the Haunted Emporium**
+
+**Context:** Push the established Victorian candy-shop interface into a darker, eerier Halloween atmosphere.
+
+**Task:** Redesign the presentation with haunted gothic styling while preserving every existing feature.
+
+**Format:** CSS-led responsive redesign with a visual summary and brief testing instructions.
+
+**Constraints:** Preserve core behavior and API logic; add no dependencies, backend work, or features; keep the implementation understandable and stop after the redesign.
+
+**Full Prompt:**\
+Implement an alternate visual redesign for Madam Morticia's Candy Emporium.
+
+Goal:
+Keep the vintage, gothic, Victorian candy-shop feel, but push the design further into a much spookier Halloween atmosphere.
+
+Design direction:
+- Make the interface feel darker, eerier, and more haunted.
+- Preserve a vintage gothic style rather than a cartoon Halloween look.
+- Emphasize spooky mood, mystery, and haunted elegance.
+- Use a richer Halloween palette such as near-black, deep plum, blood red accents, burnt orange, antique gold, moonlit cream, and shadowy overlays.
+- Introduce stronger haunted visual details through CSS, such as dramatic backgrounds, ghostly glow, cobweb-inspired borders, ornate frames, misty/shadowed surfaces, eerie headings, and more atmospheric panel styling.
+- Keep the interface readable and polished.
+
+Requirements:
+- Preserve all existing functionality, including dessert-only recipes, spooky aliases, Madam Morticia's warnings, loading states, error handling, and the Reveal Another Recipe button.
+- Keep the layout responsive across desktop, tablet, and mobile.
+- Focus primarily on styling and small presentational markup adjustments.
+- Make loading/error states visually consistent with the darker spooky theme.
+
+Constraints:
+- Do not change the app's core behavior or API logic unless a tiny UI-related adjustment is absolutely necessary.
+- No new dependencies, no backend changes, no extra features.
+- Prefer CSS and existing project structure.
+- Keep the implementation understandable.
+- Maintain `prompt-history.md`.
+
+Run lint and build. Summarize the visual changes and provide brief testing instructions. Stop after this redesign.
+
+**### Prompt 17 — Refine Webs and Ghostly Moon**
+
+**Context:** Improve two atmospheric elements that feel unclear or unfinished in the haunted redesign.
+
+**Task:** Make the spider webs more visible and rebuild the ghostly moon as a polished visual.
+
+**Format:** Focused CSS visual refinements.
+
+**Constraints:** Preserve the rest of the existing interface and functionality.
+
+**Full Prompt:**\
+I kind of like this. However, the web geometrey blends into the background and is barely visible. Also, the ghostly moon looks cheap and unfinished. I want you to create a better visual for the spider webs and ghostly moon.
+
+**### Prompt 18 — Restore the Victorian Monogram**
+
+**Context:** Simplify the haunted background after reviewing the refined atmospheric visuals.
+
+**Task:** Remove the ghostly moon, restore the decorative upper-left “M,” and retain the spider webs.
+
+**Format:** Focused CSS visual adjustment.
+
+**Constraints:** Preserve the refined webs and all other styling and functionality.
+
+**Full Prompt:**\
+Let's get rid of the ghostly moon and revert back to the M in the top, left corner and let's keep the spider webs.
+
+**### Prompt 19 — Restore Original Gothic Design**
+
+**Context:** The alternate haunted redesign no longer fits the desired visual direction.
+
+**Task:** Revert the interface to its original vintage gothic design.
+
+**Format:** Restore the earlier presentation styling.
+
+**Constraints:** Preserve all existing application functionality and content.
+
+**Full Prompt:**\
+This doesn't look right either. Let's just revery back to the original vintage, gothic design.
+
 **### Prompt 13 — Add Spooky Recipe Aliases**
 
 **Context:** Give dessert discoveries distinctive Halloween display names while retaining their source names.
