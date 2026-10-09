@@ -175,6 +175,33 @@
   color: var(--pale-gold);
 }
 
+.morticia-warning {
+  max-width: 35rem;
+  margin: 1.35rem auto 1.1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgb(232 117 46 / 42%);
+  border-left: 3px solid var(--ember);
+  background: rgb(189 77 32 / 9%);
+  text-align: left;
+}
+
+.morticia-warning h3 {
+  margin: 0 0 0.3rem;
+  color: var(--ember);
+  font-size: 0.66rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.morticia-warning p {
+  margin: 0;
+  color: var(--cream);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
 .flourish {
   color: var(--orange);
   font-size: 0.75rem;

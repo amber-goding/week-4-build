@@ -14,6 +14,17 @@ const SPOOKY_PREFIXES = [
   'Midnight',
   'Haunted',
 ]
+const MORTICIA_WARNINGS = [
+  'The last soul to refuse a bite still haunts the pantry.',
+  'Eat before midnight—or something else may finish it for you.',
+  'If the frosting whispers your name, do not answer.',
+  'Keep one crumb for the thing beneath the floorboards.',
+  'Never serve this dessert to a mirror after dark.',
+  'The candles may go out. Continue eating. Do not look behind you.',
+  'Should the plate return empty, lock the kitchen door.',
+  'One slice awakens the appetite. Two awaken something older.',
+  'Count the berries twice; the thirteenth was not there before.',
+]
 
 function getText(value) {
   return typeof value === 'string' ? value.trim() : ''
@@ -27,6 +38,14 @@ function createSpookyAlias(originalName) {
   const prefix = SPOOKY_PREFIXES[nameScore % SPOOKY_PREFIXES.length]
 
   return `${prefix} ${originalName}`
+}
+
+function selectWarning(currentWarning) {
+  const choices = MORTICIA_WARNINGS.filter(
+    (warning) => warning !== currentWarning,
+  )
+
+  return choices[Math.floor(Math.random() * choices.length)]
 }
 
 async function fetchJson(url) {
@@ -113,6 +132,7 @@ function getIngredients(meal) {
 function App() {
   const [meal, setMeal] = useState(null)
   const [recipeAlias, setRecipeAlias] = useState('')
+  const [recipeWarning, setRecipeWarning] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const hasRequestedMeal = useRef(false)
@@ -125,6 +145,7 @@ function App() {
       const nextMeal = await fetchRandomDessert(currentMealId)
       setMeal(nextMeal)
       setRecipeAlias(createSpookyAlias(getText(nextMeal.strMeal)))
+      setRecipeWarning((currentWarning) => selectWarning(currentWarning))
     } catch (requestError) {
       console.error('Unable to load a random dessert:', requestError)
       setError(FRIENDLY_ERROR_MESSAGE)
@@ -183,6 +204,10 @@ function App() {
             <p className="original-name">
               Originally known as <span>{mealName}</span>
             </p>
+            <aside className="morticia-warning">
+              <h3>Madam Morticia&apos;s Warning</h3>
+              <p>{recipeWarning}</p>
+            </aside>
             <span className="flourish" aria-hidden="true">
               ◆ ✦ ◆
             </span>

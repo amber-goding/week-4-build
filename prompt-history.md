@@ -308,6 +308,19 @@ Constraints:
 
 Run lint and build. Summarize changes and provide concise manual testing steps. Stop after this milestone.
 
+**### Prompt 15 — Make Warnings Spookier**
+
+**Context:** Intensify the Halloween atmosphere of Madam Morticia's fictional dessert warnings.
+
+**Task:** Rewrite the predefined warnings to feel spookier.
+
+**Format:** Concise replacement warning copy.
+
+**Constraints:** Keep the existing warning system and project behavior intact.
+
+**Full Prompt:**\
+Manual testing passed. However, I would like the predefined MORTICIA_WARNINGS to be a little spooker, especially since Halloween is right around the corner.
+
 **### Prompt 13 — Add Spooky Recipe Aliases**
 
 **Context:** Give dessert discoveries distinctive Halloween display names while retaining their source names.
@@ -340,3 +353,36 @@ Constraints:
 - Maintain `prompt-history.md`.
 
 Run lint and build. Summarize changes and provide concise testing steps. Stop after this milestone.
+
+**### Prompt 14 — Add Madam Morticia's Warnings**
+
+**Context:** Add playful narrative flavor to each enchanted dessert discovery.
+
+**Task:** Select and display a stable fictional warning whenever a new dessert is retrieved.
+
+**Format:** Small predefined JavaScript collection with styled output, a summary, and concise tests.
+
+**Constraints:** Use no APIs, dependencies, AI content, API-data mutation, or unnecessary refactoring; preserve all recipe content and styling; stop after this milestone.
+
+**Full Prompt:**\
+Implement Milestone 7: Madam Morticia's Warnings.
+
+Requirements:
+
+- Create a small collection of 8–10 predefined, fictional Halloween warnings appropriate for desserts.
+- Randomly select one warning when a new dessert is retrieved.
+- Display it beneath the recipe's spooky alias in a visually distinct section titled "Madam Morticia's Warning."
+- Keep the warning unchanged while viewing the current recipe.
+- Select a new warning when "Reveal Another Recipe" is clicked.
+- Keep warnings playful, mysterious, and concise.
+
+Constraints:
+
+- Use simple JavaScript and existing React functionality.
+- No additional APIs, dependencies, or AI-generated content.
+- Preserve original recipe names, ingredients, instructions, and existing styling.
+- Do not modify the original API data.
+- Avoid unnecessary components, state, or refactoring.
+- Maintain `prompt-history.md`.
+
+Run lint and build. Summarize changes and provide concise manual testing steps. Stop after this milestone.
