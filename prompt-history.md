@@ -308,6 +308,72 @@ Constraints:
 
 Run lint and build. Summarize changes and provide concise manual testing steps. Stop after this milestone.
 
+**### Prompt 13 — Add Spooky Recipe Aliases**
+
+**Context:** Give dessert discoveries distinctive Halloween display names while retaining their source names.
+
+**Task:** Generate and display a stable JavaScript-created spooky alias for each retrieved recipe.
+
+**Format:** Small rule-based implementation with a summary and concise testing steps.
+
+**Constraints:** Do not mutate API data or add AI, APIs, dependencies, or unnecessary abstractions; preserve functionality and styling; stop after this milestone.
+
+**Full Prompt:**\
+Implement Milestone 6: Spooky Recipe Aliases for Madam Morticia's Candy Emporium.
+
+Requirements:
+
+- Generate a Halloween-themed display name for each dessert using simple JavaScript rules based on its original name.
+- Use a small collection of spooky prefixes or descriptions.
+- Preserve and display the original API recipe name underneath the Halloween alias.
+- Keep aliases readable, creative, and appropriate for desserts.
+- Generate the alias when a new recipe is retrieved.
+- Keep the alias stable while the current recipe is displayed.
+
+Constraints:
+
+- Do not modify the original API data.
+- No AI generation, additional APIs, or dependencies.
+- Preserve existing recipe functionality and Halloween styling.
+- Avoid unnecessary abstractions or refactoring.
+- Modify only necessary files.
+- Maintain `prompt-history.md`.
+
+Run lint and build. Summarize changes and provide concise testing steps. Stop after this milestone.
+
+**### Prompt 14 — Add Madam Morticia's Warnings**
+
+**Context:** Add playful narrative flavor to each enchanted dessert discovery.
+
+**Task:** Select and display a stable fictional warning whenever a new dessert is retrieved.
+
+**Format:** Small predefined JavaScript collection with styled output, a summary, and concise tests.
+
+**Constraints:** Use no APIs, dependencies, AI content, API-data mutation, or unnecessary refactoring; preserve all recipe content and styling; stop after this milestone.
+
+**Full Prompt:**\
+Implement Milestone 7: Madam Morticia's Warnings.
+
+Requirements:
+
+- Create a small collection of 8–10 predefined, fictional Halloween warnings appropriate for desserts.
+- Randomly select one warning when a new dessert is retrieved.
+- Display it beneath the recipe's spooky alias in a visually distinct section titled "Madam Morticia's Warning."
+- Keep the warning unchanged while viewing the current recipe.
+- Select a new warning when "Reveal Another Recipe" is clicked.
+- Keep warnings playful, mysterious, and concise.
+
+Constraints:
+
+- Use simple JavaScript and existing React functionality.
+- No additional APIs, dependencies, or AI-generated content.
+- Preserve original recipe names, ingredients, instructions, and existing styling.
+- Do not modify the original API data.
+- Avoid unnecessary components, state, or refactoring.
+- Maintain `prompt-history.md`.
+
+Run lint and build. Summarize changes and provide concise manual testing steps. Stop after this milestone.
+
 **### Prompt 15 — Make Warnings Spookier**
 
 **Context:** Intensify the Halloween atmosphere of Madam Morticia's fictional dessert warnings.
@@ -399,68 +465,23 @@ Let's get rid of the ghostly moon and revert back to the M in the top, left corn
 **Full Prompt:**\
 This doesn't look right either. Let's just revery back to the original vintage, gothic design.
 
-**### Prompt 13 — Add Spooky Recipe Aliases**
+**### Prompt 20 — Correct Prompt History Order**
 
-**Context:** Give dessert discoveries distinctive Halloween display names while retaining their source names.
+**Context:** Repair the numerical sequence identified during the Week 4 audit.
 
-**Task:** Generate and display a stable JavaScript-created spooky alias for each retrieved recipe.
+**Task:** Move Prompts 13 and 14 into their proper positions and verify the final ordering.
 
-**Format:** Small rule-based implementation with a summary and concise testing steps.
+**Format:** Preserve complete prompt entries exactly and provide a correction summary.
 
-**Constraints:** Do not mutate API data or add AI, APIs, dependencies, or unnecessary abstractions; preserve functionality and styling; stop after this milestone.
-
-**Full Prompt:**\
-Implement Milestone 6: Spooky Recipe Aliases for Madam Morticia's Candy Emporium.
-
-Requirements:
-
-- Generate a Halloween-themed display name for each dessert using simple JavaScript rules based on its original name.
-- Use a small collection of spooky prefixes or descriptions.
-- Preserve and display the original API recipe name underneath the Halloween alias.
-- Keep aliases readable, creative, and appropriate for desserts.
-- Generate the alias when a new recipe is retrieved.
-- Keep the alias stable while the current recipe is displayed.
-
-Constraints:
-
-- Do not modify the original API data.
-- No AI generation, additional APIs, or dependencies.
-- Preserve existing recipe functionality and Halloween styling.
-- Avoid unnecessary abstractions or refactoring.
-- Modify only necessary files.
-- Maintain `prompt-history.md`.
-
-Run lint and build. Summarize changes and provide concise testing steps. Stop after this milestone.
-
-**### Prompt 14 — Add Madam Morticia's Warnings**
-
-**Context:** Add playful narrative flavor to each enchanted dessert discovery.
-
-**Task:** Select and display a stable fictional warning whenever a new dessert is retrieved.
-
-**Format:** Small predefined JavaScript collection with styled output, a summary, and concise tests.
-
-**Constraints:** Use no APIs, dependencies, AI content, API-data mutation, or unnecessary refactoring; preserve all recipe content and styling; stop after this milestone.
+**Constraints:** Do not fabricate, rewrite, or remove entries; modify no application code or other files.
 
 **Full Prompt:**\
-Implement Milestone 7: Madam Morticia's Warnings.
+Correct the ordering of entries in `prompt-history.md`.
 
-Requirements:
+- Move Prompts 13 and 14 into their proper numerical positions.
+- Preserve all existing prompt content, numbering, and historical details exactly.
+- Do not fabricate, rewrite, or remove entries.
+- Do not modify application code or other files.
+- Verify the final prompt sequence is numerically ordered.
 
-- Create a small collection of 8–10 predefined, fictional Halloween warnings appropriate for desserts.
-- Randomly select one warning when a new dessert is retrieved.
-- Display it beneath the recipe's spooky alias in a visually distinct section titled "Madam Morticia's Warning."
-- Keep the warning unchanged while viewing the current recipe.
-- Select a new warning when "Reveal Another Recipe" is clicked.
-- Keep warnings playful, mysterious, and concise.
-
-Constraints:
-
-- Use simple JavaScript and existing React functionality.
-- No additional APIs, dependencies, or AI-generated content.
-- Preserve original recipe names, ingredients, instructions, and existing styling.
-- Do not modify the original API data.
-- Avoid unnecessary components, state, or refactoring.
-- Maintain `prompt-history.md`.
-
-Run lint and build. Summarize changes and provide concise manual testing steps. Stop after this milestone.
+Summarize the correction and stop.
