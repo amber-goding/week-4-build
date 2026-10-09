@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 
 const RANDOM_MEAL_URL = 'https://www.themealdb.com/api/json/v1/1/random.php'
@@ -39,27 +39,94 @@ async function fetchRandomMeal() {
   return meal
 }
 
+function getIngredients(meal) {
+  return Array.from({ length: 20 }, (_, index) => {
+    const number = index + 1
+    const ingredient = meal[`strIngredient${number}`]?.trim()
+
+    if (!ingredient) return null
+
+    return {
+      ingredient,
+      measure: meal[`strMeasure${number}`]?.trim() || '',
+    }
+  }).filter(Boolean)
+}
+
 function App() {
+  const [meal, setMeal] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
   const hasRequestedMeal = useRef(false)
+
+  const loadMeal = useCallback(async () => {
+    setIsLoading(true)
+    setError('')
+
+    try {
+      const nextMeal = await fetchRandomMeal()
+      setMeal(nextMeal)
+    } catch (requestError) {
+      console.error('Unable to load a random meal:', requestError)
+      setError(requestError.message)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
 
   useEffect(() => {
     if (hasRequestedMeal.current) return
 
     hasRequestedMeal.current = true
-
-    async function loadMeal() {
-      try {
-        const meal = await fetchRandomMeal()
-        console.log('Random meal:', meal)
-      } catch (error) {
-        console.error('Unable to load a random meal:', error)
-      }
-    }
-
     loadMeal()
-  }, [])
+  }, [loadMeal])
 
-  return <main />
+  const ingredients = meal ? getIngredients(meal) : []
+
+  return (
+    <main>
+      <h1>Madam Morticia&apos;s Candy Emporium</h1>
+
+      {error && <p role="alert">{error}</p>}
+
+      {!meal && isLoading && <p>Loading recipe...</p>}
+
+      {meal && (
+        <article>
+          <h2>{meal.strMeal || 'Untitled recipe'}</h2>
+
+          {meal.strMealThumb && (
+            <img src={meal.strMealThumb} alt={meal.strMeal || 'Recipe'} />
+          )}
+
+          <section>
+            <h3>Ingredients</h3>
+            {ingredients.length > 0 ? (
+              <ul>
+                {ingredients.map(({ ingredient, measure }) => (
+                  <li key={`${ingredient}-${measure}`}>
+                    {measure && `${measure} `}
+                    {ingredient}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No ingredients were provided.</p>
+            )}
+          </section>
+
+          <section>
+            <h3>Instructions</h3>
+            <p>{meal.strInstructions || 'No instructions were provided.'}</p>
+          </section>
+        </article>
+      )}
+
+      <button type="button" onClick={loadMeal} disabled={isLoading}>
+        {isLoading ? 'Revealing...' : 'Reveal Another Recipe'}
+      </button>
+    </main>
+  )
 }
 
 export default App

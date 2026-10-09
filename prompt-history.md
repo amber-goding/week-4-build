@@ -176,3 +176,35 @@ App.jsx:10 Request was blocked by DevTools: "https://www.themealdb.com/api/json/
 
 **Full Prompt:**\
 Do I need to disable network request blocking?
+
+**### Prompt 9 — Display Fetched Recipe**
+
+**Context:** Extend the working random-meal fetch into the second MVP milestone.
+
+**Task:** Display recipe details and add a button that fetches another random meal.
+
+**Format:** Simple React state-driven interface with a summary and manual testing steps.
+
+**Constraints:** Preserve error handling; add no APIs, dependencies, backend, or Halloween styling; modify only necessary files and stop after this milestone.
+
+**Full Prompt:**\
+Implement Milestone 2 for Madam Morticia's Candy Emporium: display the fetched recipe.
+
+Requirements:
+
+- Reuse the existing working TheMealDB fetch logic.
+- Display the meal name, image, ingredients with measurements, and cooking instructions.
+- Pair `strIngredient1–20` with `strMeasure1–20`, skipping empty or null ingredients.
+- Add a "Reveal Another Recipe" button that fetches a new random meal.
+- Use React state to update the displayed recipe.
+- Keep the interface simple and readable.
+
+Constraints:
+
+- Preserve existing API error handling.
+- No additional API calls, dependencies, backend, or Halloween styling.
+- Avoid unnecessary components or abstractions.
+- Modify only necessary files.
+- Continue maintaining `prompt-log.md`.
+
+Summarize changes and provide manual testing steps. Stop after this milestone.
