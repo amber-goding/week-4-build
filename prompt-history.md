@@ -208,3 +208,30 @@ Constraints:
 - Continue maintaining `prompt-log.md`.
 
 Summarize changes and provide manual testing steps. Stop after this milestone.
+
+**### Prompt 10 — Review Resilient Request States**
+
+**Context:** Validate and strengthen the recipe interface's loading, failure, and no-data behavior.
+
+**Task:** Review request states, make necessary fixes, and verify retry behavior without breaking existing functionality.
+
+**Format:** Minimal implementation changes followed by a summary and concise manual tests.
+
+**Constraints:** Preserve working behavior; avoid unrelated refactors, dependencies, and Halloween styling; run lint and build, then stop.
+
+**Full Prompt:**\
+Review the existing loading, error, and no-data handling in Madam Morticia's Candy Emporium.
+
+Requirements:
+
+- Verify failed network requests display a clear, friendly error message.
+- Verify invalid or empty API responses do not crash the app.
+- Ensure users can retry after an error.
+- Ensure loading indicators and button states behave correctly.
+- Preserve existing working functionality.
+
+Make only necessary fixes. Do not refactor unrelated code, add dependencies, or introduce Halloween styling.
+
+Maintain the established `prompt-history.md`.
+
+Run lint and build, summarize any changes, and provide concise manual testing steps. Stop after this milestone.

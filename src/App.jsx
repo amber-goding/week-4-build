@@ -2,6 +2,12 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 
 const RANDOM_MEAL_URL = 'https://www.themealdb.com/api/json/v1/1/random.php'
+const FRIENDLY_ERROR_MESSAGE =
+  "We couldn't reveal a recipe. Please try again."
+
+function getText(value) {
+  return typeof value === 'string' ? value.trim() : ''
+}
 
 async function fetchRandomMeal() {
   let response
@@ -29,7 +35,10 @@ async function fetchRandomMeal() {
   }
 
   const meal = data.meals.find(
-    (candidate) => candidate && typeof candidate === 'object',
+    (candidate) =>
+      candidate &&
+      typeof candidate === 'object' &&
+      getText(candidate.strMeal),
   )
 
   if (!meal) {
@@ -42,13 +51,13 @@ async function fetchRandomMeal() {
 function getIngredients(meal) {
   return Array.from({ length: 20 }, (_, index) => {
     const number = index + 1
-    const ingredient = meal[`strIngredient${number}`]?.trim()
+    const ingredient = getText(meal[`strIngredient${number}`])
 
     if (!ingredient) return null
 
     return {
       ingredient,
-      measure: meal[`strMeasure${number}`]?.trim() || '',
+      measure: getText(meal[`strMeasure${number}`]),
     }
   }).filter(Boolean)
 }
@@ -68,7 +77,7 @@ function App() {
       setMeal(nextMeal)
     } catch (requestError) {
       console.error('Unable to load a random meal:', requestError)
-      setError(requestError.message)
+      setError(FRIENDLY_ERROR_MESSAGE)
     } finally {
       setIsLoading(false)
     }
@@ -82,22 +91,23 @@ function App() {
   }, [loadMeal])
 
   const ingredients = meal ? getIngredients(meal) : []
+  const mealName = meal ? getText(meal.strMeal) : ''
+  const mealImage = meal ? getText(meal.strMealThumb) : ''
+  const instructions = meal ? getText(meal.strInstructions) : ''
 
   return (
-    <main>
+    <main aria-busy={isLoading}>
       <h1>Madam Morticia&apos;s Candy Emporium</h1>
 
       {error && <p role="alert">{error}</p>}
 
-      {!meal && isLoading && <p>Loading recipe...</p>}
+      {!meal && isLoading && <p role="status">Loading recipe...</p>}
 
       {meal && (
         <article>
-          <h2>{meal.strMeal || 'Untitled recipe'}</h2>
+          <h2>{mealName}</h2>
 
-          {meal.strMealThumb && (
-            <img src={meal.strMealThumb} alt={meal.strMeal || 'Recipe'} />
-          )}
+          {mealImage && <img src={mealImage} alt={mealName} />}
 
           <section>
             <h3>Ingredients</h3>
@@ -117,13 +127,17 @@ function App() {
 
           <section>
             <h3>Instructions</h3>
-            <p>{meal.strInstructions || 'No instructions were provided.'}</p>
+            <p>{instructions || 'No instructions were provided.'}</p>
           </section>
         </article>
       )}
 
       <button type="button" onClick={loadMeal} disabled={isLoading}>
-        {isLoading ? 'Revealing...' : 'Reveal Another Recipe'}
+        {isLoading
+          ? 'Revealing...'
+          : error && !meal
+            ? 'Try Again'
+            : 'Reveal Another Recipe'}
       </button>
     </main>
   )
