@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 
-const RANDOM_MEAL_URL = 'https://www.themealdb.com/api/json/v1/1/random.php'
+const DESSERT_LIST_URL =
+  'https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert'
+const MEAL_LOOKUP_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i='
 const FRIENDLY_ERROR_MESSAGE =
   "We couldn't reveal a recipe. Please try again."
 
@@ -9,11 +11,11 @@ function getText(value) {
   return typeof value === 'string' ? value.trim() : ''
 }
 
-async function fetchRandomMeal() {
+async function fetchJson(url) {
   let response
 
   try {
-    response = await fetch(RANDOM_MEAL_URL)
+    response = await fetch(url)
   } catch {
     throw new Error('Unable to connect to TheMealDB.')
   }
@@ -22,30 +24,58 @@ async function fetchRandomMeal() {
     throw new Error(`TheMealDB request failed with status ${response.status}.`)
   }
 
-  let data
-
   try {
-    data = await response.json()
+    return await response.json()
   } catch {
     throw new Error('TheMealDB returned an invalid response.')
   }
+}
 
-  if (!Array.isArray(data?.meals)) {
-    throw new Error('TheMealDB response did not include a meals array.')
+async function fetchRandomDessert(currentMealId = '') {
+  const dessertData = await fetchJson(DESSERT_LIST_URL)
+
+  if (!Array.isArray(dessertData?.meals)) {
+    throw new Error('TheMealDB did not return a dessert list.')
   }
 
-  const meal = data.meals.find(
+  const desserts = dessertData.meals.filter(
     (candidate) =>
       candidate &&
       typeof candidate === 'object' &&
+      getText(candidate.idMeal),
+  )
+
+  if (desserts.length === 0) {
+    throw new Error('TheMealDB did not return any desserts.')
+  }
+
+  const alternatives = desserts.filter(
+    (dessert) => getText(dessert.idMeal) !== currentMealId,
+  )
+  const choices = alternatives.length > 0 ? alternatives : desserts
+  const selectedDessert = choices[Math.floor(Math.random() * choices.length)]
+  const selectedId = getText(selectedDessert.idMeal)
+  const mealData = await fetchJson(
+    `${MEAL_LOOKUP_URL}${encodeURIComponent(selectedId)}`,
+  )
+
+  if (!Array.isArray(mealData?.meals)) {
+    throw new Error('TheMealDB did not return recipe details.')
+  }
+
+  const dessert = mealData.meals.find(
+    (candidate) =>
+      candidate &&
+      typeof candidate === 'object' &&
+      getText(candidate.idMeal) &&
       getText(candidate.strMeal),
   )
 
-  if (!meal) {
-    throw new Error('TheMealDB did not return a meal.')
+  if (!dessert) {
+    throw new Error('TheMealDB did not return a complete dessert recipe.')
   }
 
-  return meal
+  return dessert
 }
 
 function getIngredients(meal) {
@@ -68,15 +98,15 @@ function App() {
   const [error, setError] = useState('')
   const hasRequestedMeal = useRef(false)
 
-  const loadMeal = useCallback(async () => {
+  const loadMeal = useCallback(async (currentMealId = '') => {
     setIsLoading(true)
     setError('')
 
     try {
-      const nextMeal = await fetchRandomMeal()
+      const nextMeal = await fetchRandomDessert(currentMealId)
       setMeal(nextMeal)
     } catch (requestError) {
-      console.error('Unable to load a random meal:', requestError)
+      console.error('Unable to load a random dessert:', requestError)
       setError(FRIENDLY_ERROR_MESSAGE)
     } finally {
       setIsLoading(false)
@@ -94,51 +124,114 @@ function App() {
   const mealName = meal ? getText(meal.strMeal) : ''
   const mealImage = meal ? getText(meal.strMealThumb) : ''
   const instructions = meal ? getText(meal.strInstructions) : ''
+  const currentMealId = meal ? getText(meal.idMeal) : ''
 
   return (
-    <main aria-busy={isLoading}>
-      <h1>Madam Morticia&apos;s Candy Emporium</h1>
+    <main className="emporium" aria-busy={isLoading}>
+      <div className="moon-glow" aria-hidden="true" />
 
-      {error && <p role="alert">{error}</p>}
+      <header className="shop-header">
+        <p className="eyebrow">Confections, curiosities &amp; culinary spells</p>
+        <h1>
+          <span>Madam Morticia&apos;s</span>
+          Candy Emporium
+        </h1>
+        <p className="tagline">
+          Knock thrice, step softly, and discover what the cauldron has chosen.
+        </p>
+      </header>
 
-      {!meal && isLoading && <p role="status">Loading recipe...</p>}
+      {error && (
+        <div className="message message--error" role="alert">
+          <span aria-hidden="true">✦</span>
+          <p>{error}</p>
+        </div>
+      )}
+
+      {!meal && isLoading && (
+        <div className="loading-card" role="status">
+          <span className="crystal-ball" aria-hidden="true" />
+          <p>Consulting the enchanted cookbook...</p>
+        </div>
+      )}
 
       {meal && (
-        <article>
-          <h2>{mealName}</h2>
+        <article className="recipe-card">
+          <header className="recipe-heading">
+            <p>Tonight&apos;s enchanted discovery</p>
+            <h2>{mealName}</h2>
+            <span className="flourish" aria-hidden="true">
+              ◆ ✦ ◆
+            </span>
+          </header>
 
-          {mealImage && <img src={mealImage} alt={mealName} />}
+          <div className="recipe-layout">
+            <div className="recipe-sidebar">
+              {mealImage ? (
+                <figure className="image-frame">
+                  <img src={mealImage} alt={mealName} />
+                </figure>
+              ) : (
+                <div className="image-placeholder">
+                  <span aria-hidden="true">☾</span>
+                  <p>This recipe keeps no portrait.</p>
+                </div>
+              )}
 
-          <section>
-            <h3>Ingredients</h3>
-            {ingredients.length > 0 ? (
-              <ul>
-                {ingredients.map(({ ingredient, measure }) => (
-                  <li key={`${ingredient}-${measure}`}>
-                    {measure && `${measure} `}
-                    {ingredient}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No ingredients were provided.</p>
-            )}
-          </section>
+              <section className="ingredients-panel">
+                <h3>
+                  <span aria-hidden="true">✧</span> Ingredients
+                </h3>
+                {ingredients.length > 0 ? (
+                  <ul>
+                    {ingredients.map(({ ingredient, measure }, index) => (
+                      <li key={`${ingredient}-${index}`}>
+                        <span className="measure">{measure || 'To taste'}</span>
+                        <span>{ingredient}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="empty-note">No ingredients were provided.</p>
+                )}
+              </section>
+            </div>
 
-          <section>
-            <h3>Instructions</h3>
-            <p>{instructions || 'No instructions were provided.'}</p>
-          </section>
+            <section className="instructions-panel">
+              <p className="section-kicker">From the spellbook</p>
+              <h3>Method of Enchantment</h3>
+              <p>{instructions || 'No instructions were provided.'}</p>
+            </section>
+          </div>
         </article>
       )}
 
-      <button type="button" onClick={loadMeal} disabled={isLoading}>
-        {isLoading
-          ? 'Revealing...'
-          : error && !meal
-            ? 'Try Again'
-            : 'Reveal Another Recipe'}
-      </button>
+      <div className="reveal-area">
+        {meal && isLoading && (
+          <p className="refresh-status" role="status">
+            The pages are turning...
+          </p>
+        )}
+        <button
+          type="button"
+          onClick={() => loadMeal(currentMealId)}
+          disabled={isLoading}
+        >
+          <span aria-hidden="true">✦</span>
+          {isLoading
+            ? 'Revealing...'
+            : error && !meal
+              ? 'Try Again'
+              : 'Reveal Another Recipe'}
+          <span aria-hidden="true">✦</span>
+        </button>
+      </div>
+
+      <footer className="shop-footer" aria-hidden="true">
+        <span>Est.</span>
+        <span className="footer-mark">☾</span>
+        <span>1893</span>
+      </footer>
     </main>
   )
 }

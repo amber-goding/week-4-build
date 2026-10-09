@@ -1,40 +1,492 @@
+:root {
+  --ink: #110b17;
+  --midnight: #1c1028;
+  --plum: #321641;
+  --orange: #bd4d20;
+  --ember: #e8752e;
+  --gold: #c9a45c;
+  --pale-gold: #ead29a;
+  --cream: #f5ead2;
+  --muted-cream: #cfc0a4;
+}
+
 #root {
   min-height: 100vh;
 }
 
-main {
-  width: min(100% - 2rem, 48rem);
+.emporium {
+  position: relative;
+  isolation: isolate;
+  width: min(100% - 2rem, 74rem);
+  min-height: 100vh;
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 4.5rem 0 2.5rem;
 }
 
-article img {
+.emporium::before,
+.emporium::after {
+  position: fixed;
+  z-index: -1;
+  color: rgb(201 164 92 / 8%);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(12rem, 30vw, 32rem);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.emporium::before {
+  content: 'M';
+  top: -5rem;
+  left: -3rem;
+}
+
+.emporium::after {
+  content: '☾';
+  right: -3rem;
+  bottom: -4rem;
+}
+
+.moon-glow {
+  position: fixed;
+  z-index: -2;
+  top: -8rem;
+  left: 50%;
+  width: min(42rem, 90vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(111 54 134 / 20%), transparent 67%);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.shop-header {
+  max-width: 58rem;
+  margin: 0 auto 3.25rem;
+  text-align: center;
+}
+
+.eyebrow,
+.section-kicker,
+.recipe-heading > p {
+  margin: 0;
+  color: var(--gold);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.shop-header h1 {
+  margin: 0.65rem 0 1rem;
+  color: var(--cream);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.7rem, 7vw, 6.25rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.88;
+  text-shadow: 0 0 2.5rem rgb(189 77 32 / 30%);
+}
+
+.shop-header h1 span {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--pale-gold);
+  font-size: 0.38em;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.tagline {
+  max-width: 36rem;
+  margin: 0 auto;
+  color: var(--muted-cream);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-style: italic;
+  line-height: 1.65;
+}
+
+.recipe-card,
+.loading-card,
+.message {
+  border: 1px solid rgb(201 164 92 / 50%);
+  background:
+    linear-gradient(135deg, rgb(255 255 255 / 3%), transparent 35%),
+    rgb(19 11 26 / 88%);
+  box-shadow:
+    0 1.5rem 4rem rgb(0 0 0 / 45%),
+    inset 0 0 0 0.3rem rgb(201 164 92 / 5%);
+  backdrop-filter: blur(12px);
+}
+
+.recipe-card {
+  position: relative;
+  padding: clamp(1.25rem, 4vw, 3.5rem);
+}
+
+.recipe-card::before,
+.recipe-card::after {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  border-color: var(--gold);
+  content: '';
+}
+
+.recipe-card::before {
+  top: 0.65rem;
+  left: 0.65rem;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.recipe-card::after {
+  right: 0.65rem;
+  bottom: 0.65rem;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.recipe-heading {
+  max-width: 50rem;
+  margin: 0 auto clamp(2rem, 5vw, 3.5rem);
+  text-align: center;
+}
+
+.recipe-heading h2 {
+  margin: 0.55rem 0 0.7rem;
+  color: var(--cream);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.flourish {
+  color: var(--orange);
+  font-size: 0.75rem;
+  letter-spacing: 0.8rem;
+}
+
+.recipe-layout {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.82fr) minmax(18rem, 1.18fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.image-frame {
+  position: relative;
+  margin: 0 0 2rem;
+  padding: 0.55rem;
+  border: 1px solid var(--gold);
+  background: var(--ink);
+  box-shadow: 0.75rem 0.75rem 0 var(--plum);
+  transform: rotate(-1deg);
+}
+
+.image-frame::after {
+  position: absolute;
+  inset: 0.85rem;
+  border: 1px solid rgb(245 234 210 / 35%);
+  content: '';
+  pointer-events: none;
+}
+
+.image-frame img {
   display: block;
   width: 100%;
-  max-width: 32rem;
-  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  filter: saturate(0.82) contrast(1.05) sepia(0.08);
 }
 
-article section {
-  margin-top: 2rem;
+.image-placeholder {
+  display: grid;
+  min-height: 15rem;
+  margin-bottom: 2rem;
+  place-content: center;
+  border: 1px solid var(--gold);
+  color: var(--muted-cream);
+  text-align: center;
 }
 
-article p {
-  line-height: 1.6;
+.image-placeholder span {
+  color: var(--gold);
+  font-size: 3rem;
+}
+
+.ingredients-panel {
+  padding: 1.25rem;
+  border: 1px solid rgb(201 164 92 / 25%);
+  background: rgb(50 22 65 / 32%);
+}
+
+.ingredients-panel h3,
+.instructions-panel h3 {
+  margin: 0;
+  color: var(--pale-gold);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.55rem;
+  font-weight: 400;
+}
+
+.ingredients-panel h3 span {
+  color: var(--orange);
+}
+
+.ingredients-panel ul {
+  padding: 0;
+  margin: 1rem 0 0;
+  list-style: none;
+}
+
+.ingredients-panel li {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, 0.8fr) 1.2fr;
+  gap: 0.75rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px dotted rgb(201 164 92 / 25%);
+  color: var(--cream);
+  line-height: 1.35;
+}
+
+.ingredients-panel li:last-child {
+  border-bottom: 0;
+}
+
+.measure {
+  color: var(--gold);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.empty-note {
+  color: var(--muted-cream);
+}
+
+.instructions-panel {
+  position: relative;
+  padding-top: 1.25rem;
+}
+
+.instructions-panel::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4rem;
+  height: 1px;
+  background: var(--orange);
+  content: '';
+}
+
+.instructions-panel h3 {
+  margin: 0.45rem 0 1.5rem;
+  font-size: clamp(1.8rem, 3.5vw, 2.65rem);
+}
+
+.instructions-panel > p:last-child {
+  margin: 0;
+  color: var(--cream);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.08rem;
+  line-height: 1.85;
   white-space: pre-line;
 }
 
-li + li {
-  margin-top: 0.5rem;
+.message {
+  display: flex;
+  max-width: 44rem;
+  margin: 0 auto 1.5rem;
+  padding: 1rem 1.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--cream);
+  text-align: center;
 }
 
-button {
-  margin-top: 2rem;
-  padding: 0.75rem 1rem;
-  font: inherit;
+.message p {
+  margin: 0;
+}
+
+.message span {
+  color: var(--ember);
+}
+
+.message--error {
+  border-color: rgb(232 117 46 / 70%);
+}
+
+.loading-card {
+  display: grid;
+  min-height: 22rem;
+  place-content: center;
+  color: var(--muted-cream);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  text-align: center;
+}
+
+.crystal-ball {
+  width: 5rem;
+  aspect-ratio: 1;
+  margin: 0 auto 1.5rem;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--pale-gold), var(--plum) 25%, var(--ink) 70%);
+  box-shadow: 0 0 2.5rem rgb(189 77 32 / 40%);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.reveal-area {
+  display: grid;
+  min-height: 8.5rem;
+  place-content: center;
+  text-align: center;
+}
+
+.refresh-status {
+  margin: 0 0 0.5rem;
+  color: var(--muted-cream);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.reveal-area button {
+  min-width: min(100%, 19rem);
+  padding: 0.95rem 1.4rem;
+  border: 1px solid var(--pale-gold);
+  border-radius: 0;
+  color: var(--ink);
+  background: linear-gradient(135deg, var(--pale-gold), var(--gold));
+  box-shadow: 0 0.45rem 1.5rem rgb(0 0 0 / 35%);
+  font: 700 0.78rem/1.2 system-ui, sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
 }
 
-button:disabled {
+.reveal-area button span {
+  margin: 0 0.4rem;
+  color: var(--orange);
+}
+
+.reveal-area button:hover:not(:disabled) {
+  box-shadow: 0 0.7rem 2rem rgb(189 77 32 / 30%);
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.reveal-area button:focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 4px;
+}
+
+.reveal-area button:disabled {
   cursor: wait;
+  filter: grayscale(0.35) brightness(0.75);
+}
+
+.shop-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: rgb(201 164 92 / 60%);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.footer-mark {
+  font-size: 1.2rem;
+}
+
+@keyframes pulse {
+  50% {
+    box-shadow: 0 0 3.5rem rgb(232 117 46 / 65%);
+    transform: scale(1.04);
+  }
+}
+
+@media (max-width: 760px) {
+  .emporium {
+    padding-top: 3rem;
+  }
+
+  .shop-header {
+    margin-bottom: 2.25rem;
+  }
+
+  .recipe-layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .image-frame {
+    max-width: 30rem;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .ingredients-panel li {
+    grid-template-columns: minmax(5.5rem, 0.65fr) 1.35fr;
+  }
+}
+
+@media (max-width: 430px) {
+  .emporium {
+    width: min(100% - 1rem, 74rem);
+    padding-top: 2rem;
+  }
+
+  .eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+  }
+
+  .recipe-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .recipe-heading {
+    margin-bottom: 2rem;
+  }
+
+  .ingredients-panel {
+    padding: 1rem;
+  }
+
+  .ingredients-panel li {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .instructions-panel > p:last-child {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .reveal-area button {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -235,3 +235,75 @@ Make only necessary fixes. Do not refactor unrelated code, add dependencies, or 
 Maintain the established `prompt-history.md`.
 
 Run lint and build, summarize any changes, and provide concise manual testing steps. Stop after this milestone.
+
+**### Prompt 11 — Create Halloween Emporium UI**
+
+**Context:** Apply the final visual milestone to the working random-recipe experience.
+
+**Task:** Create a responsive, accessible Victorian Halloween candy-shop interface around the existing recipe functionality.
+
+**Format:** CSS-led UI implementation followed by a summary and brief visual testing instructions.
+
+**Constraints:** Preserve API behavior; add no dependencies, generated images, backend, or features; modify only necessary UI files and stop after this milestone.
+
+**Full Prompt:**\
+Implement Milestone 4: the Halloween-themed UI for Madam Morticia's Candy Emporium.
+
+Design direction:
+
+- Create a distinctive, immersive, magical Victorian candy-shop atmosphere.
+- Use a sophisticated Halloween palette: midnight purple, near-black, burnt orange, antique gold, and warm cream.
+- Use expressive typography, atmospheric backgrounds, elegant borders, and subtle decorative details.
+- Make the interface feel like a mysterious enchanted emporium, not a generic recipe website.
+
+Requirements:
+
+- Display the title "Madam Morticia's Candy Emporium" prominently.
+- Present the existing recipe as an enchanted discovery.
+- Style the recipe image, ingredients, instructions, and "Reveal Another Recipe" button.
+- Style loading and error states consistently.
+- Ensure responsive layouts for desktop, tablet, and mobile.
+- Maintain readability, sufficient contrast, and accessible interactions.
+
+Constraints:
+
+- Preserve all existing API logic and functionality.
+- No new dependencies, image-generation services, backend, or extra features.
+- Prefer CSS for decorative effects.
+- Modify only necessary UI/CSS files.
+- Keep the implementation understandable and maintain `prompt-history.md`.
+
+Run lint and build. Summarize changes and provide brief visual testing instructions. Stop after this milestone.
+
+**### Prompt 12 — Restrict Recipes to Desserts**
+
+**Context:** Narrow the enchanted recipe experience to TheMealDB's Dessert category.
+
+**Task:** Select a random dessert ID, retrieve its full recipe, and avoid repeating the current dessert when possible.
+
+**Format:** Simple two-request implementation with a summary and concise manual tests.
+
+**Constraints:** Use only TheMealDB; preserve the UI and existing behavior; add no dependencies, unrelated features, or unnecessary refactors; stop after this milestone.
+
+**Full Prompt:**\
+Update Madam Morticia's Candy Emporium to retrieve only dessert recipes from TheMealDB.
+
+Requirements:
+
+- Replace the random-meal request with `filter.php?c=Dessert`.
+- Randomly select a returned dessert ID.
+- Fetch its full recipe using `lookup.php?i=ID`.
+- Reuse the existing recipe display, loading, and error handling.
+- Make "Reveal Another Recipe" select another dessert.
+- Avoid repeating the currently displayed recipe when alternatives exist.
+- Handle empty or invalid responses from either endpoint.
+
+Constraints:
+
+- Continue using only TheMealDB.
+- Preserve existing UI styling and functionality.
+- No new dependencies, unnecessary refactoring, or unrelated features.
+- Keep the implementation simple and readable.
+- Maintain `prompt-history.md`.
+
+Run lint and build. Summarize changes and provide concise manual testing steps. Stop after this milestone.
