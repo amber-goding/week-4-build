@@ -485,3 +485,16 @@ Correct the ordering of entries in `prompt-history.md`.
 - Verify the final prompt sequence is numerically ordered.
 
 Summarize the correction and stop.
+
+**### Prompt 21 — Add a Gothic Favicon**
+
+**Context:** Give the finished application a polished browser-tab identity.
+
+**Task:** Create and connect an appropriate favicon for Madam Morticia's Candy Emporium.
+
+**Format:** Lightweight project-native favicon asset.
+
+**Constraints:** Keep the favicon consistent with the existing application design.
+
+**Full Prompt:**\
+Before we finish up, I want you to give my application an appropriate favicon, just to make it look more legit.
