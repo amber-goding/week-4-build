@@ -6,9 +6,27 @@ const DESSERT_LIST_URL =
 const MEAL_LOOKUP_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i='
 const FRIENDLY_ERROR_MESSAGE =
   "We couldn't reveal a recipe. Please try again."
+const SPOOKY_PREFIXES = [
+  'Bewitched',
+  'Moonlit',
+  'Phantom-Kissed',
+  'Spellbound',
+  'Midnight',
+  'Haunted',
+]
 
 function getText(value) {
   return typeof value === 'string' ? value.trim() : ''
+}
+
+function createSpookyAlias(originalName) {
+  const nameScore = Array.from(originalName).reduce(
+    (total, character) => total + character.charCodeAt(0),
+    0,
+  )
+  const prefix = SPOOKY_PREFIXES[nameScore % SPOOKY_PREFIXES.length]
+
+  return `${prefix} ${originalName}`
 }
 
 async function fetchJson(url) {
@@ -94,6 +112,7 @@ function getIngredients(meal) {
 
 function App() {
   const [meal, setMeal] = useState(null)
+  const [recipeAlias, setRecipeAlias] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const hasRequestedMeal = useRef(false)
@@ -105,6 +124,7 @@ function App() {
     try {
       const nextMeal = await fetchRandomDessert(currentMealId)
       setMeal(nextMeal)
+      setRecipeAlias(createSpookyAlias(getText(nextMeal.strMeal)))
     } catch (requestError) {
       console.error('Unable to load a random dessert:', requestError)
       setError(FRIENDLY_ERROR_MESSAGE)
@@ -158,8 +178,11 @@ function App() {
       {meal && (
         <article className="recipe-card">
           <header className="recipe-heading">
-            <p>Tonight&apos;s enchanted discovery</p>
-            <h2>{mealName}</h2>
+            <p className="discovery-label">Tonight&apos;s enchanted discovery</p>
+            <h2>{recipeAlias || mealName}</h2>
+            <p className="original-name">
+              Originally known as <span>{mealName}</span>
+            </p>
             <span className="flourish" aria-hidden="true">
               ◆ ✦ ◆
             </span>

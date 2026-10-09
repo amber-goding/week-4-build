@@ -307,3 +307,36 @@ Constraints:
 - Maintain `prompt-history.md`.
 
 Run lint and build. Summarize changes and provide concise manual testing steps. Stop after this milestone.
+
+**### Prompt 13 — Add Spooky Recipe Aliases**
+
+**Context:** Give dessert discoveries distinctive Halloween display names while retaining their source names.
+
+**Task:** Generate and display a stable JavaScript-created spooky alias for each retrieved recipe.
+
+**Format:** Small rule-based implementation with a summary and concise testing steps.
+
+**Constraints:** Do not mutate API data or add AI, APIs, dependencies, or unnecessary abstractions; preserve functionality and styling; stop after this milestone.
+
+**Full Prompt:**\
+Implement Milestone 6: Spooky Recipe Aliases for Madam Morticia's Candy Emporium.
+
+Requirements:
+
+- Generate a Halloween-themed display name for each dessert using simple JavaScript rules based on its original name.
+- Use a small collection of spooky prefixes or descriptions.
+- Preserve and display the original API recipe name underneath the Halloween alias.
+- Keep aliases readable, creative, and appropriate for desserts.
+- Generate the alias when a new recipe is retrieved.
+- Keep the alias stable while the current recipe is displayed.
+
+Constraints:
+
+- Do not modify the original API data.
+- No AI generation, additional APIs, or dependencies.
+- Preserve existing recipe functionality and Halloween styling.
+- Avoid unnecessary abstractions or refactoring.
+- Modify only necessary files.
+- Maintain `prompt-history.md`.
+
+Run lint and build. Summarize changes and provide concise testing steps. Stop after this milestone.
